@@ -14,6 +14,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "card_swiper",
+      "rootUri": "file:///Applications/flutter/.pub-cache/hosted/pub.dartlang.org/card_swiper-2.0.4",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "characters",
       "rootUri": "file:///Applications/flutter/.pub-cache/hosted/pub.dartlang.org/characters-1.2.1",
       "packageUri": "lib/",
@@ -146,7 +152,7 @@
       "languageVersion": "2.18"
     }
   ],
-  "generated": "2022-12-28T01:42:35.731639Z",
+  "generated": "2022-12-28T02:25:40.068281Z",
   "generator": "pub",
   "generatorVersion": "2.18.6"
 }
