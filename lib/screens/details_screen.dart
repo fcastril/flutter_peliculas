@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:peliculas/themes/apptheme.dart';
+import 'package:peliculas/widgets/widgets.dart';
 
 class DetailsScreen extends StatelessWidget {
   const DetailsScreen({super.key});
@@ -13,7 +14,14 @@ class DetailsScreen extends StatelessWidget {
         body: CustomScrollView(
       slivers: [
         _CustomAppBar(),
-        SliverList(delegate: SliverChildListDelegate([_PosterAndTitle()]))
+        SliverList(
+            delegate: SliverChildListDelegate([
+          const _PosterAndTitle(),
+          const _Overview(),
+          const _Overview(),
+          const _Overview(),
+          const CastingCards()
+        ]))
       ],
     ));
   }
@@ -85,6 +93,7 @@ class _CustomAppBar extends StatelessWidget {
         titlePadding: const EdgeInsets.all(0),
         title: Container(
             width: double.infinity,
+            padding: const EdgeInsets.only(bottom: 10),
             alignment: Alignment.bottomCenter,
             color: Colors.black12,
             child: const Text(
@@ -95,6 +104,22 @@ class _CustomAppBar extends StatelessWidget {
             placeholder: AssetImage('assets/loading.gif'),
             image: NetworkImage('https://via.placeholder.com/500x300'),
             fit: BoxFit.cover),
+      ),
+    );
+  }
+}
+
+class _Overview extends StatelessWidget {
+  const _Overview({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      child: Text(
+        'Officia aliqua occaecat pariatur reprehenderit culpa. Fugiat consectetur adipisicing excepteur dolore eu voluptate officia sit in velit incididunt ex adipisicing. Ad deserunt aliquip consectetur culpa velit dolore sit duis labore consequat. In do pariatur consequat tempor occaecat. Pariatur ut labore non quis velit. Est eiusmod fugiat deserunt minim quis reprehenderit non labore ipsum magna aliqua. Incididunt laborum aute laboris mollit consectetur ut et ad ex.',
+        textAlign: TextAlign.justify,
+        style: Theme.of(context).textTheme.subtitle1,
       ),
     );
   }
