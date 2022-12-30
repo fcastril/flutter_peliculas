@@ -6,8 +6,8 @@ import 'dart:convert';
 
 import 'package:peliculas/models/models.dart';
 
-class NowPlayingResponse {
-  NowPlayingResponse({
+class MoviesDatesResponse {
+  MoviesDatesResponse({
     required this.dates,
     required this.page,
     required this.results,
@@ -21,11 +21,11 @@ class NowPlayingResponse {
   int totalPages;
   int totalResults;
 
-  factory NowPlayingResponse.fromJson(String str) =>
-      NowPlayingResponse.fromMap(json.decode(str));
+  factory MoviesDatesResponse.fromJson(String str) =>
+      MoviesDatesResponse.fromMap(json.decode(str));
 
-  factory NowPlayingResponse.fromMap(Map<String, dynamic> json) =>
-      NowPlayingResponse(
+  factory MoviesDatesResponse.fromMap(Map<String, dynamic> json) =>
+      MoviesDatesResponse(
         dates: Dates.fromMap(json["dates"]),
         page: json["page"],
         results: List<Movie>.from(json["results"].map((x) => Movie.fromMap(x))),

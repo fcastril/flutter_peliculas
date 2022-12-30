@@ -1,9 +1,6 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:peliculas/models/models.dart';
-import 'package:peliculas/models/popular_response.dart';
 
 class MoviesProvider extends ChangeNotifier {
   final String _urlBase = 'api.themoviedb.org';
@@ -12,11 +9,14 @@ class MoviesProvider extends ChangeNotifier {
 
   List<Movie> onDisplay = [];
   List<Movie> populars = [];
-  int popularPage = 0;
+  List<Movie> upComing = [];
+  int _popularPage = 0;
+  int _upComingPage = 0;
 
   MoviesProvider() {
     getOnDisplayMovies();
     getPopularMovies();
+    getUpComingMovies();
   }
   Future<String> _getJsonData(String endpoint, [int page = 1]) async {
     var url = Uri.https(_urlBase, endpoint,
@@ -27,19 +27,29 @@ class MoviesProvider extends ChangeNotifier {
 
   getOnDisplayMovies() async {
     final body = await _getJsonData('/3/movie/now_playing');
-    final nowPlayingResponse = NowPlayingResponse.fromJson(body);
+    final nowPlayingResponse = MoviesDatesResponse.fromJson(body);
 
     onDisplay = nowPlayingResponse.results;
     notifyListeners();
   }
 
   getPopularMovies() async {
-    popularPage++;
-    final body = await _getJsonData('/3/movie/popular', popularPage);
+    _popularPage++;
+    final body = await _getJsonData('/3/movie/popular', _popularPage);
 
     final popularResponse = PopularResponse.fromJson(body);
 
     populars = [...populars, ...popularResponse.results];
+    notifyListeners();
+  }
+
+  getUpComingMovies() async {
+    _upComingPage++;
+    final body = await _getJsonData('/3/movie/upcoming', _upComingPage);
+
+    final upComingResponse = MoviesDatesResponse.fromJson(body);
+
+    upComing = [...upComing, ...upComingResponse.results];
     notifyListeners();
   }
 }
