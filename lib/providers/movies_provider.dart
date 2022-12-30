@@ -5,12 +5,13 @@ import 'package:http/http.dart' as http;
 import 'package:peliculas/models/models.dart';
 
 class MoviesProvider extends ChangeNotifier {
-  String _urlBase = 'api.themoviedb.org';
-  String _apiKey = '4445015c53332456116862bfbd4d02a1';
-  String _lenguage = 'es-ES';
+  final String _urlBase = 'api.themoviedb.org';
+  final String _apiKey = '4445015c53332456116862bfbd4d02a1';
+  final String _lenguage = 'es-ES';
+
+  List<Movie> onDisplay = [];
 
   MoviesProvider() {
-    print('Movies Provider inicializado ....');
     getOnDisplayMovies();
   }
   getOnDisplayMovies() async {
@@ -20,6 +21,7 @@ class MoviesProvider extends ChangeNotifier {
     final response = await http.get(url);
     final nowPlayingResponse = NowPlayingResponse.fromJson(response.body);
 
-    return nowPlayingResponse;
+    onDisplay = nowPlayingResponse.results;
+    notifyListeners();
   }
 }
