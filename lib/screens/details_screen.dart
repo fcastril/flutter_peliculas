@@ -66,7 +66,7 @@ class _PosterAndTitle extends StatelessWidget {
                   child: Text(movie.originalTitle,
                       style: themeText.subtitle1,
                       overflow: TextOverflow.ellipsis,
-                      maxLines: 1),
+                      maxLines: 2),
                 ),
                 Row(
                   children: [
@@ -108,12 +108,13 @@ class _CustomAppBar extends StatelessWidget {
         titlePadding: const EdgeInsets.all(0),
         title: Container(
             width: double.infinity,
-            padding: const EdgeInsets.only(bottom: 10),
+            padding: const EdgeInsets.only(right: 10, left: 10, bottom: 10),
             alignment: Alignment.bottomCenter,
             color: Colors.black12,
             child: Text(
               movie.title,
               style: const TextStyle(fontSize: 16),
+              textAlign: TextAlign.center,
             )),
         background: FadeInImage(
             placeholder: const AssetImage('assets/loading.gif'),
