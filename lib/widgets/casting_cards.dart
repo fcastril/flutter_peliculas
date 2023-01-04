@@ -1,48 +1,73 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../models/models.dart';
+import '../providers/movies_provider.dart';
 
 class CastingCards extends StatelessWidget {
-  const CastingCards({super.key});
+  final int movieId;
+
+  const CastingCards({super.key, required this.movieId});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 30),
-      width: double.infinity,
-      height: 180,
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        itemCount: 10,
-        itemBuilder: (_, int index) {
-          return const _CastCard();
-        },
-      ),
-    );
+    final moviesProvider = Provider.of<MoviesProvider>(context, listen: false);
+
+    return FutureBuilder(
+        future: moviesProvider.getMovieCast(movieId),
+        builder: (_, AsyncSnapshot<List<Cast>> snapshot) {
+          if (!snapshot.hasData) {
+            return Container(
+              constraints: const BoxConstraints(maxWidth: 150),
+              height: 180,
+              margin: const EdgeInsets.only(bottom: 30),
+              child: const CupertinoActivityIndicator(),
+            );
+          }
+
+          final cast = snapshot.data!;
+
+          return Container(
+            margin: const EdgeInsets.only(bottom: 30),
+            width: double.infinity,
+            height: 180,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: cast.length,
+              itemBuilder: (_, int index) {
+                return _CastCard(cast: cast[index]);
+              },
+            ),
+          );
+        });
   }
 }
 
 class _CastCard extends StatelessWidget {
-  const _CastCard({super.key});
+  final Cast cast;
+  const _CastCard({super.key, required Cast this.cast});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-        margin: EdgeInsets.symmetric(horizontal: 10),
+        margin: const EdgeInsets.symmetric(horizontal: 10),
         width: 110,
         height: 100,
         child: Column(
           children: [
             ClipRRect(
                 borderRadius: BorderRadius.circular(20),
-                child: const FadeInImage(
-                  placeholder: AssetImage('assets/no-image.jpg'),
-                  image: NetworkImage('https://via.placeholder.com/300x400'),
+                child: FadeInImage(
+                  placeholder: const AssetImage('assets/no-image.jpg'),
+                  image: NetworkImage(cast.fullProfilePath),
                   fit: BoxFit.cover,
                   width: 100,
                   height: 140,
                 )),
             const SizedBox(height: 5),
-            const Text(
-              'Casting.Moviedkdkd kdkd',
+            Text(
+              cast.name,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
               textAlign: TextAlign.center,
