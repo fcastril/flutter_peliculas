@@ -42,13 +42,15 @@ class _PosterAndTitle extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Row(
           children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(20),
-              child: FadeInImage(
-                  placeholder: const AssetImage('assets/no-image.jpg'),
-                  image: NetworkImage(movie.fullPathImg),
-                  height: 150,
-                  width: 110),
+            Hero(
+              tag: movie.heroeId!,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: FadeInImage(
+                    placeholder: const AssetImage('assets/no-image.jpg'),
+                    image: NetworkImage(movie.fullPathImg),
+                    height: 150),
+              ),
             ),
             const SizedBox(width: 20),
             Column(
@@ -80,7 +82,8 @@ class _PosterAndTitle extends StatelessWidget {
                     ),
                     Text(movie.voteAverage.toString(), style: themeText.caption)
                   ],
-                )
+                ),
+                Text(movie.releaseDate ?? '', style: themeText.caption)
               ],
             )
           ],

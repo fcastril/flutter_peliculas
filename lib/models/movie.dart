@@ -32,6 +32,7 @@ class Movie {
   bool video;
   double voteAverage;
   int voteCount;
+  String? heroeId;
 
   get fullPathImg {
     return posterPath == null
