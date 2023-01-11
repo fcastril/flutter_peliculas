@@ -31,7 +31,7 @@ class CastingCards extends StatelessWidget {
           return Container(
             margin: const EdgeInsets.only(bottom: 30),
             width: double.infinity,
-            height: 180,
+            height: 220,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
               itemCount: cast.length,
@@ -49,10 +49,12 @@ class _CastCard extends StatelessWidget {
   const _CastCard({super.key, required this.actor});
   @override
   Widget build(BuildContext context) {
+    final TextTheme themeText = Theme.of(context).textTheme;
+
     return Container(
         margin: const EdgeInsets.symmetric(horizontal: 10),
         width: 110,
-        height: 100,
+        height: 160,
         child: Column(
           children: [
             ClipRRect(
@@ -70,7 +72,14 @@ class _CastCard extends StatelessWidget {
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
               textAlign: TextAlign.center,
-            )
+            ),
+            const SizedBox(height: 5),
+            if (actor.character != null)
+              Text(actor.character!,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  textAlign: TextAlign.center,
+                  style: themeText.caption)
           ],
         ));
   }
